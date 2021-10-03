@@ -10,10 +10,10 @@
  */
 
 #include "list.h"
-
+#include <stdlib.h>
 
 int main(void) {
-	char *platep = '555555';
-	lremove(platep);
-	exit(EXIT_SUCESS);
+	char *plate = "555555";
+	lremove(plate);
+	exit(EXIT_SUCCESS);
 }
