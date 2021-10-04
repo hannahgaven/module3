@@ -18,6 +18,7 @@ car_t *front=NULL;
 
 car_t *make_car(char *plate,double price,int year)  { 
 	car_t *pp;
+	pp = (car_t*)malloc(sizeof(car_t));
 	if(!(pp = (car_t*)malloc(sizeof(car_t)))) {
 		printf("[Error: malloc failed allocating car]\n");
 		return NULL;
@@ -51,4 +52,10 @@ int main(void) {
 	printf("Removing last car with plate 1\n");
 	lremove(plate);
 	lapply(printcar);
+	free(p1);
+	free(p2);
+	free(p3);
+	free(p4);
+	free(p5);
+	exit(EXIT_SUCCESS);
 }

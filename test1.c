@@ -52,5 +52,6 @@ int main(){
 	lapply(printcar);
 
 	// free memory
-	return 0;
+	free(p1);
+	exit(EXIT_SUCCESS);
 }

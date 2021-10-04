@@ -33,6 +33,7 @@ car_t *front=NULL;
 
 car_t *make_car(char *plate,double price,int year)  { 
 	car_t *pp;
+	pp = (car_t*)malloc(sizeof(car_t));
 	if(!(pp = (car_t*)malloc(sizeof(car_t)))) {
 		printf("[Error: malloc failed allocating car]\n");
 		return NULL;
@@ -44,7 +45,7 @@ car_t *make_car(char *plate,double price,int year)  {
 	return pp;
 }
 
-int main(){
+int main(void){
 
 	car_t *p1 = make_car("1",3000,2005);
     car_t *p2 = make_car("2",3002,2006);
@@ -58,6 +59,10 @@ int main(){
 	lput(p3);
     printf("Print updated list of cars\n");
     lapply(printcar);
+	//NULL out pointers
 	// free memory
-	return 0;
+	free(p1);
+	free(p2);
+	free(p3);
+	exit(EXIT_SUCCESS);
 }
