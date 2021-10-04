@@ -51,7 +51,6 @@ car_t *lremove(char *plate){
 
 	car_t *p = front;
 	car_t *p2 = NULL;
-	printf("front plate : %s, compare plate  %s \n",front->plate,plate);
 	//check first car
 	if(strcmp(front->plate, plate) == 0){
 		p2=front;

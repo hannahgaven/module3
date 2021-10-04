@@ -11,9 +11,16 @@
 
 #include "list.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+static void printcar(car_t *cp) {
+	printf("Plate : %s, Price: %f, Year: %d\n", cp->plate, cp->price, cp->year);
+}
 
 int main(void) {
-	char *plate = "555555";
+	char *plate = "5";
 	lremove(plate);
+	lapply(printcar);
 	exit(EXIT_SUCCESS);
 }

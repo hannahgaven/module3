@@ -47,10 +47,17 @@ car_t *make_car(char *plate,double price,int year)  {
 int main(){
 
 	car_t *p1 = make_car("1",3000,2005);
-	
+    car_t *p2 = make_car("2",3002,2006);
 	lput(p1);
+    lput(p2);
+    printf("Print pre-existing list of cars\n");
 	lapply(printcar);
-
+	printf(".....\n");
+    //add another car
+    car_t *p3 = make_car("3",3004,2007);
+	lput(p3);
+    printf("Print updated list of cars\n");
+    lapply(printcar);
 	// free memory
 	return 0;
 }

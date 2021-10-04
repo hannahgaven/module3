@@ -1,6 +1,6 @@
 CFLAGS=-Wall -pedantic -std=c11 -I. -g
 
-all: test8
+all: test1 test2 test7 test8 test9 test10
 
 %.o: %.c %.h
 	gcc $(CFLAGS) -c $<

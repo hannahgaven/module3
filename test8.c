@@ -48,11 +48,7 @@ int main(void) {
 	lapply(printcar);
 	printf("...\n");
 	char *plate = "1";
-	printf("Removing first car with plate 5\n");
+	printf("Removing last car with plate 1\n");
 	lremove(plate);
 	lapply(printcar);
-	printf("First car in the list\n");
-	printf("...\n");
-	car_t *firstcar = lget();
-	printcar(firstcar);
 }
