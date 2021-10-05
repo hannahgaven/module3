@@ -34,10 +34,6 @@ car_t *front=NULL;
 car_t *make_car(char *plate,double price,int year)  { 
 	car_t *pp;
 	pp = (car_t*)malloc(sizeof(car_t));
-	if(!(pp = (car_t*)malloc(sizeof(car_t)))) {
-		printf("[Error: malloc failed allocating car]\n");
-		return NULL;
-	}
 	pp->next = NULL;
 	strcpy(pp->plate,plate);
 	pp->price=price;
