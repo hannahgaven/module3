@@ -14,12 +14,19 @@
 #include <stdio.h>
 #include <string.h>
 
+car_t *front=NULL;
+
 static void printcar(car_t *cp) {
 	printf("Plate : %s, Price: %f, Year: %d\n", cp->plate, cp->price, cp->year);
+	
 }
 
 int main(void) {
-	char *plate = "5";
-	lapply(printcar);
+ 	if(front!=NULL){ 
+	  lapply(printcar);
+	}else{
+		printf("Empty list, can't use lapply!");
+		exit(EXIT_FAILURE);
+	}
 	exit(EXIT_SUCCESS);
 }

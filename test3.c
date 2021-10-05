@@ -19,10 +19,12 @@ static void printcar(car_t *cp) {
 }
 
 int main(void) {
-	char *plate = malloc(sizeof(char));
-	plate="5";
-	lget();
-	lapply(printcar);
-	free(plate);
+	car_t *carp= lget();
+	if(carp!=NULL){
+		printcar(carp);
+	}else{
+		printf("Empty list. Can't get!");
+		exit(EXIT_FAILURE);
+	}
 	exit(EXIT_SUCCESS);
 }
