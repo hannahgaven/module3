@@ -46,7 +46,11 @@ int main(void) {
 	printf("...\n");
 	char *plate = "3";
 	printf("Removing middle car with plate 3\n");
-	lremove(plate);
+  car_t *carp=	lremove(plate);
+	if(carp==NULL || carp->price!=3004 || carp->year!=2007) {
+		printf("eRROR");
+		exit(EXIT_FAILURE);
+	}
 	lapply(printcar);
 	free(p1);
 	free(p2);

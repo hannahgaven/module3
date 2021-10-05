@@ -26,7 +26,6 @@ int main(void) {
 	  lapply(printcar);
 	}else{
 		printf("Empty list, can't use lapply!");
-		exit(EXIT_FAILURE);
 	}
 	exit(EXIT_SUCCESS);
 }

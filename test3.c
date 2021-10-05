@@ -24,7 +24,6 @@ int main(void) {
 		printcar(carp);
 	}else{
 		printf("Empty list. Can't get!");
-		exit(EXIT_FAILURE);
 	}
 	exit(EXIT_SUCCESS);
 }
