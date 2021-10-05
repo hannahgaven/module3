@@ -35,7 +35,7 @@ static void printcar(car_t *cp) {
 }
 
 int main(void) {
-	car_t *p1 = make_car("1",3000,2005);
+	car_t *p1 = malloc(sizeof(car_t));
 	car_t *p2 = make_car("2",3002,2006);
 	car_t *p3 = make_car("3",3004,2007);
 	car_t *p4 = make_car("4",3006,2008);
