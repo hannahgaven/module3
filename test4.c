@@ -44,8 +44,8 @@ int main(void) {
 	lput(p5);
 	lapply(printcar);
 	printf("...\n");
-    car_t *firstcar = lget();
-    printf("removing first car from list \n")\; 
+  car_t *firstcar = lget();
+  printf("removing first car from list with plate:  %s \n", firstcar->plate); 
 	lapply(printcar);
 	free(p1);
 	free(p2);

@@ -19,8 +19,10 @@ static void printcar(car_t *cp) {
 }
 
 int main(void) {
-	char *plate = "5";
+	char *plate = malloc(sizeof(char));
+	plate="5";
 	lget();
 	lapply(printcar);
+	free(plate);
 	exit(EXIT_SUCCESS);
 }

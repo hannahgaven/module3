@@ -1,6 +1,6 @@
 CFLAGS=-Wall -pedantic -std=c11 -I. -g
 
-all: test1 test2 test7 test8 test9 test10
+all: test1 test2 test3 test4 test5 test6 test7 test8 test9 test10
 
 %.o: %.c %.h
 	gcc $(CFLAGS) -c $<
@@ -19,6 +19,9 @@ test4: list.o	test4.o
 
 test5: list.o	test5.o
 				gcc $(CFLAGS) list.o test5.o -o test5
+
+test6: list.o test6.o
+				gcc $(CFLAGS) list.o test6.o -o test6
 
 test7: list.o test7.o
 				gcc $(CFLAGS) list.o test7.o -o test7

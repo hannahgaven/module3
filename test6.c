@@ -42,7 +42,7 @@ int main(void) {
 	lput(p3);
 	lput(p4);
 	lput(p5);
-    printf("applied the print car function so that the list of cars should print out")
+  printf("applied the print car function so that the list of cars should print out");
 	lapply(printcar);
 	free(p1);
 	free(p2);
