@@ -8,14 +8,11 @@
  * Description: 
  * 
  */
-
-#include "queue.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
-#include <stdlib.h>
-#include <stdio.h>
-
-typedef void queue_t;
+#include "queue.h"     
 
 /* creates a structure of the "real element type"
 which is the element within the real queue; each element has a next 
@@ -23,8 +20,8 @@ pointer (which points to the next element in the queue) and has a pointer
 to the information/structure stored in this element, which is void 
 */
 
-typedef struct relement_t {
-    struct relement_t *next; 
+typedef struct relementstruct{
+    struct relementstruct *next; 
     void *element; 
 } relement_t;
 
@@ -39,17 +36,22 @@ relement_t *make_element(relement_t *next_el, void *el){
     rep->next = *next_el; 
     rep->element = *el; 
     return rep; 
-
 }
 
 
 
 queue_t* qopen(void){
-    //this is so not right lmao
-    rq_t* p = (rq_t*)malloc(sizeof(rq_t));  
-    p->front = NULL; 
-    p->back = NULL; 
-    return (queue_t *)p; 
+	//this is so not right lmao
+	//if malloc fails, it should return NULL, p arrow front undefined
+	rq_t* p = (rq_t*)malloc(sizeof(rq_t));
+	if (!(p = (rq_t*)malloc(sizeof(rq_t)))){
+		printf("Error!");
+		return NULL;
+	}else{
+		p->front = NULL; 
+		p->back = NULL; 
+		return (queue_t *)p; 
+	}
 }
 
 void qclose(queue_t *qp){
@@ -89,22 +91,26 @@ void* qget(queue_t *qp){
 }
 
 void qapply(queue_t *qp, void (*fn)(void* elementp)){
-    rq_t *rqp = (rq_t *)qp;
-    relement_t *elementp = rqp->front;
-
+	rq_t *rqp = (rq_t *)qp;
+	relement_t *elementp = rqp->front;
+	
 	while (elementp!=NULL){
 		fn(elementp->element);
-        elementp=elementp->next;
+		elementp=elementp->next;
 	}
 }
 
-void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp),
-const void* skeyp){
+void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp),const void* skeyp){
 
+	rq_t *rqp = (rq_t *)qp;                                                                                                                    
+  relement_t *elementp = rqp->front;
+
+	while(elementp!=NULL){
+		 searchfn(elementp->element);                                                                                                                              elementp=elementp->next;  
+	}
 }
 
-void* qremove(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),
-const void* skeyp) {
+void* qremove(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),const void* skeyp) {
 
 }
 
