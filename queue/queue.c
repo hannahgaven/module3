@@ -42,8 +42,6 @@ relement_t *make_element(relement_t *next_el, void *el){
 
 }
 
-
-
 queue_t* qopen(void){
     //this is so not right lmao
     rq_t* p = (rq_t*)malloc(sizeof(rq_t));  
