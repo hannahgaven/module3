@@ -15,16 +15,67 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-queue_t* qopen(void){
+typedef void queue_t;
+
+/* creates a structure of the "real element type"
+which is the element within the real queue; each element has a next 
+pointer (which points to the next element in the queue) and has a pointer 
+to the information/structure stored in this element, which is void 
+*/
+
+typedef struct relement_t {
+    struct relement_t *next; 
+    void *element; 
+} relement_t;
+
+typedef struct rq {
+    relement_t *front; 
+    relement_t *back; 
+}rq_t;
+
+relement_t *make_element(relement_t *next_el, void *el){
+    relement_t *rep; 
+    rep = (relement_t *)malloc(sizeof(relement_t*)); 
+    rep->next = *next_el; 
+    rep->element = *el; 
+    return rep; 
 
 }
 
+
+
+queue_t* qopen(void){
+    //this is so not right lmao
+    queue_t* p = (rq_t*)malloc(sizeof(rq_t));  
+    p->front = NULL; 
+    p->back = NULL; 
+
+    return p; 
+}
+
 void qclose(queue_t *qp){
+    rq_t *rqp (rq_t *)qp;
+    relement_t *p = rq_t->front;
+    while(p != rq_t->back) {
+        relement_t *temp = p->next;
+        //need to free void element pointer
+        void *el = p->element; 
+        free(el); 
+        free(p);
+        p=temp;
+    }
+}
+
 
 }
 
 int32_t qput(queue_t *qp, void *elementp){
+    rq_t *rqp = (rq_t *)qp; 
+    re_t *rep = (re_t *)elementp; 
 
+    relement_t *end = rqp->back; 
+    relement_t *new = make_element(end->next,rep); 
+    return 0; 
 }
 
 void* qget(queue_t *qp){
