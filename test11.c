@@ -34,7 +34,8 @@ typedef struct car {
 } car_t;
 
 
-static void printcar(car_t *cp) {
+static void printcar(void *p) {
+	car_t* cp = (car_t *)p;
 	printf("Plate : %s, Price: %f, Year: %d\n", cp->plate, cp->price, cp->year);
 }
 
@@ -57,8 +58,8 @@ int main(void){
   car_t *queuep= qopen();
 	car_t *p1 = make_car("1",3000,2005);
 
-  qput(queuep,p1);
-  qapply(p1,(void *)*printcar((void *)p1));
+  qput(queuep,(void *)p1);
+	qapply(queuep, printcar);
 
 	// free memory
 	free(p1);

@@ -70,16 +70,18 @@ void qclose(queue_t *qp){
 
 int32_t qput(queue_t *qp, void *elementp){
     rq_t *rqp = (rq_t *)qp; 
-    relement_t *rep = (relement_t *)elementp; 
+    //relement_t *rep = (void *)elementp; 
 		relement_t *end = rqp->back;
 		relement_t *new;
 		
-		if(rqp ==NULL){
-		  new = make_element(rqp->front,rep);
+		if(rqp->back ==NULL){
+		  new = make_element(rqp->front,elementp);
 			rqp->back= new;
+			rqp->front=new;
+			printf("Added sth!");
 		}else{
 			relement_t *end = rqp->back; 
-			new = make_element(end->next,rep); 
+			new = make_element(end->next,elementp); 
 			end->next= new;
 			rqp->back= end->next;
 		}
