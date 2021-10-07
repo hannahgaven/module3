@@ -85,7 +85,7 @@ void* qget(queue_t *qp){
 	if(p != NULL){
 		pp=p;
 		p=p->next;
-        rqp->front=p;
+		rqp->front=p;
 	}
 	return (void *)pp->element;
 }
@@ -101,7 +101,7 @@ void qapply(queue_t *qp, void (*fn)(void* elementp)){
 }
 
 void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp),const void* skeyp){
-	rq_t *rqp = (rq_t *)qp;                                                                                                                 relement_t *elementp = rqp->front;
+	rq_t *rqp = (rq_t *)qp;                                                                                                        relement_t *elementp = rqp->front;
 	int k=0;
 	
 	while(elementp!=NULL){
@@ -119,7 +119,33 @@ void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp),con
 }
 
 void* qremove(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),const void* skeyp) {
+	rq_t *rqp = (rq_t *)qp;											 
+	relement_t *elementp = rqp->front;
+  rq_t *p = (rq_t*)malloc(sizeof(rq_t));
 
+	 if (!(p = (rq_t*)malloc(sizeof(rq_t)))){
+		 printf("Error!");
+		 return NULL;  
+	 }
+	 if (qp== NULL){
+		 return NULL;
+	 }
+	 
+	 
+	 while(elementp!=NULL){
+		 if (searchfn(elementp->element, skeyp)==1){                                                                               
+			 printf("Element found!Removing it");
+			 p= elementp
+			 elementp->front= elementp->next
+			 k=1;
+			 return((void*)p);
+		 }                                                                                                                         
+    elementp=elementp->next;                                                                                                   
+	 }
+	 
+	 if (k!=1){
+		 return NULL;                                                                                            
+	 }                     
 }
 
 void qconcat(queue_t *q1p, queue_t *q2p){
