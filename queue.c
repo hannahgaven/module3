@@ -101,12 +101,20 @@ void qapply(queue_t *qp, void (*fn)(void* elementp)){
 }
 
 void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp),const void* skeyp){
-
-	rq_t *rqp = (rq_t *)qp;                                                                                                                    
-  relement_t *elementp = rqp->front;
-
+	rq_t *rqp = (rq_t *)qp;                                                                                                                 relement_t *elementp = rqp->front;
+	int k=0;
+	
 	while(elementp!=NULL){
-		 searchfn(elementp->element);                                                                                                                              elementp=elementp->next;  
+		if (searchfn(elementp->element, skeyp)==1){
+			printf("Element found!");
+			k=1;
+			return(elementp);
+		}
+		elementp=elementp->next;  
+	}
+
+	if (k!=1){
+		return NULL;
 	}
 }
 
