@@ -19,20 +19,11 @@
  * Description: This is a test file. It tests if we can put to an empty list 
  * 
  */
+
+#include "list.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <queue.h>
-
-#define MAXREG 10
-
-typedef struct car {
-	struct car *next;
-	char plate[MAXREG];
-	double price;
-	int year;
-} car_t;
-
 
 static void printcar(car_t *cp) {
 	printf("Plate : %s, Price: %f, Year: %d\n", cp->plate, cp->price, cp->year);
@@ -53,12 +44,12 @@ car_t *make_car(char *plate,double price,int year)  {
 	return pp;
 }
 
-int main(void){
-  car_t *queuep= qopen();
-	car_t *p1 = make_car("1",3000,2005);
+int main(){
 
-  qput(queuep,p1);
-  qapply(p1, printcar);
+	car_t *p1 = make_car("1",3000,2005);
+	
+	lput(p1);
+	lapply(printcar);
 
 	// free memory
 	free(p1);
