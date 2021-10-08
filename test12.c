@@ -1,6 +1,11 @@
-
-#include <bool.h> 
+#include <stdio.h>
+#include <stdlib.h> 
+#include <string.h> 
+#include <inttypes.h> 
+#include <stdbool.h>
 #include "queue.h" 
+
+#define MAXREG 10 
 
 typedef struct car {
 	struct car *next;
@@ -10,7 +15,8 @@ typedef struct car {
 } car_t;
 
 
-static void printcar(car_t *cp) {
+static void printcar(void *p) {
+    car_t* cp = (car_t *)p;  
 	printf("Plate : %s, Price: %f, Year: %d\n", cp->plate, cp->price, cp->year);
 }
 
@@ -31,13 +37,11 @@ car_t *make_car(char *plate,double price,int year)  {
 
 bool searchfn (void *elementp, const void *keyp){
 
-    if(*elementp->element == keyp){
-        return TRUE; 
+    if(elementp == keyp){
+        return true; 
+    }else{
+        return false; 
     }
-    else{
-        return FALSE; 
-    }
-
 }
 
 int main(void){
@@ -50,10 +54,10 @@ int main(void){
 
     
 
-    qput(queue,p1); 
-    qapply(p1,(void*)*printcar((void *)p1)); 
-    car_t *result = qsearch(queue,searchfn, "1"); 
-    printcar(*result); 
+    qput(queuep,p1); 
+    qapply(queuep, printcar); 
+    car_t *result = qsearch(queuep,searchfn, "1"); 
+    printcar(result); 
 
     free(p1); 
     free(p2); 
