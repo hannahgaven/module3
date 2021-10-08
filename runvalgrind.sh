@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-for I in test1 test2 test3 test4 test5 test6 test7 test8 test9 test10
+for I in test11 test13
 do
 valgrind --leak-check=full ./${I} &> "log${I}.txt"
 echo "For" ${I} ":"

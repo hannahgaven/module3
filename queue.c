@@ -62,9 +62,11 @@ void qclose(queue_t *qp){
         //need to free void element pointer
         void *el = p->element; 
         free(el); 
-        free(p);
+		free(p);
         p=temp;
+		free(temp);
     }
+	free(rqp);
 }
 
 
@@ -78,7 +80,6 @@ int32_t qput(queue_t *qp, void *elementp){
 		  new = make_element(rqp->front,elementp);
 			rqp->back= new;
 			rqp->front=new;
-			printf("Added sth!");
 		}else{
 			relement_t *end = rqp->back; 
 			new = make_element(end->next,elementp); 
@@ -100,7 +101,14 @@ void* qget(queue_t *qp){
 		pp= p;
 		p=p->next;
 		rqp->front=p;
+		//free(p->element);
+		//free(p->next);
 	}
+	else {
+		pp=p;
+		return (void *)pp;
+	}
+	//free(p);
 	return (void *)pp->element;
 }
 
@@ -182,6 +190,10 @@ void qconcat(queue_t *q1p, queue_t *q2p){
 		rqp2->back = NULL; 
 		qclose(rqp2); 
 	}
+<<<<<<< HEAD
 
 	}
+=======
+}
+>>>>>>> f2c294e073aa941fb35d3daf30cc8c18d3631486
 
