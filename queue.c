@@ -145,24 +145,27 @@ void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp),con
 void* qremove(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),const void* skeyp) {
 	rq_t *rqp = (rq_t *)qp;											 
 	relement_t *elementp = rqp->front;
-  relement_t *p = (relement_t*)malloc(sizeof(relement_t));
+  	relement_t *p = NULL; //(relement_t*)malloc(sizeof(relement_t));
 	int k=0;
-	
-	 if (!(p = (relement_t*)malloc(sizeof(relement_t)))){
-		 printf("Error!");
-		 return NULL;  
-	 }
+
+	 //if (!(p = (relement_t*)malloc(sizeof(relement_t)))){
+		 //printf("Error!");
+		 //return NULL;  
+	 //}
 	 if (qp== NULL){
 		 return NULL;
 	 }
 	 
 	 while(elementp!=NULL){
+		 //it never finds the element but it should
 		 if (searchfn(elementp->element, skeyp)==1){                                                                               
-			 printf("Element found!Removing it");
+			 printf("Element found!Removing it\n");
 			 p= elementp;
 			 rqp->front= elementp->next;
 			 k=1;
-		 }                                                                                                                         
+		 }  
+		 			     printf("failure\n");
+                                                                                                                       
     elementp=elementp->next;                                                                                                   
 	 }
 	 
@@ -190,10 +193,5 @@ void qconcat(queue_t *q1p, queue_t *q2p){
 		rqp2->back = NULL; 
 		qclose(rqp2); 
 	}
-<<<<<<< HEAD
-
-	}
-=======
 }
->>>>>>> f2c294e073aa941fb35d3daf30cc8c18d3631486
 
