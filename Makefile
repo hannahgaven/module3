@@ -1,39 +1,39 @@
 CFLAGS=-Wall -pedantic -std=c11 -I. -g
 
-all: test12
+all: test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11 test12 test13 test15
 
 %.o:		%.c %.h
 				gcc $(CFLAGS) -c $<
 
-test1:	queue.o test1.o
-				gcc $(CFLAGS) queue.o test1.o -o test1
+test1:	list.o test1.o
+				gcc $(CFLAGS) list.o test1.o -o test1
 
-test2:	queue.o test2.o
-				gcc $(CFLAGS) queue.o test2.o -o test2
+test2:	list.o test2.o
+				gcc $(CFLAGS) list.o test2.o -o test2
 
-test3:	queue.o test3.o
-				gcc $(CFLAGS) queue.o test3.o -o test3
+test3:	list.o test3.o
+				gcc $(CFLAGS) list.o test3.o -o test3
 
-test4: queue.o test4.o
-				gcc $(CFLAGS) queue.o test4.o -o test4
+test4:  list.o test4.o
+				gcc $(CFLAGS) list.o test4.o -o test4
 
-test5: queue.o test5.o
-				gcc $(CFLAGS) queue.o test5.o -o test5
+test5:	list.o test5.o
+				gcc $(CFLAGS) list.o test5.o -o test5
 
-test6: queue.o test6.o
-				gcc $(CFLAGS) queue.o test6.o -o test6
+test6:	list.o test6.o
+				gcc $(CFLAGS) list.o test6.o -o test6
 
-test7: queue.o test7.o
-				gcc $(CFLAGS) queue.o test7.o -o test7
+test7:	list.o test7.o
+				gcc $(CFLAGS) list.o test7.o -o test7
 
-test8: queue.o test8.o
-				gcc $(CFLAGS) queue.o test8.o -o test8
+test8:  list.o test8.o
+				gcc $(CFLAGS) list.o test8.o -o test8
 
-test9: queue.o test9.o
-				gcc $(CFLAGS) queue.o test9.o -o test9
+test9:  list.o test9.o
+				gcc $(CFLAGS) list.o test9.o -o test9
 
-test10: queue.o test10.o
-				gcc $(CFLAGS) queue.o test10.o -o test10
+test10: list.o test10.o
+				gcc $(CFLAGS) list.o test10.o -o test10
 
 test11: queue.o test11.o
 				gcc $(CFLAGS) queue.o test11.o -o test11
@@ -41,5 +41,11 @@ test11: queue.o test11.o
 test12: queue.o test12.o
 				gcc $(CFLAGS) queue.o test12.o -o test12 
 
+test13: queue.o test13.o
+				gcc $(CFLAGS) queue.o test13.o -o test13
+
+test15: queue.o test15.o
+				gcc $(CFLAGS) queue.o test15.o -o test15
+
 clean:
-				rm -f *.o test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11
+				rm -f *.o test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11 test12 test13 test15

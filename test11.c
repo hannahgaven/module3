@@ -58,33 +58,46 @@ car_t *make_car(char *plate,double price,int year)  {
 }
 
 int main(void){
-  	car_t *queuep= qopen();
+	car_t *queuep= qopen();
 	car_t *p1 = make_car("1",3000,2005);
 	car_t *p2 = make_car("2",3002,2006);
 	car_t *p3 = make_car("3",3003,2007);
 
-  	qput(queuep,(void *)p1);
+	printf("Adding three cars...\n");
+	qput(queuep,(void *)p1);
 	qput(queuep,(void *)p2);
 	qput(queuep,(void *)p3);
+
+	printf("\nUsing qapply to print the list:\n");
 	qapply(queuep, printcar);
 	printf("....\n");
+
+	printf("\nUsing qget to get first element of the list:\n");
 	void *carp1= qget(queuep);
 	car_t* cp1 = (car_t *)carp1;
+	printf("Front car we get is:\n");
+	printcar(cp1);
+	printf("\n\n");
+	printf("Rest of the list:\n");
+	qapply(queuep, printcar);   
+	
+		
 	//void *carp2= qget(queuep);
 	//car_t* cp2 = (car_t *)carp2;
 	//void *carp3= qget(queuep);
 	//car_t* cp3 = (car_t *)carp3;
 	if(cp1!=NULL){
 		qclose(queuep);
-		//free(p1);
-		//free(p2);
-		//free(p3);
+		qclose(cp1);
+		//	free(p1);
+		//	free(p2);
+		//	free(p3);
 		exit(EXIT_SUCCESS);
 	}
 	qclose(queuep);
-	//free(p1);
-	//free(p2);
-	//free(p3);
+	qclose(cp1);
+	//	free(p1);
+	//	free(p2);
+ //free(p3);
 	exit(EXIT_FAILURE);
-
 }

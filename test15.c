@@ -1,13 +1,3 @@
-/* test13.c --- 
- * 
- * 
- * Author: Ezgi Okutan
- * Created: Sat Oct  9 14:06:46 2021 (-0400)
- * Version: 
- * 
- * Description: 
- * 
- */
 #include <stdio.h>
 #include <stdlib.h> 
 #include <string.h> 
@@ -37,8 +27,8 @@ static void printcars(car_t *cp) {
 car_t *front=NULL; 
 
 car_t *make_car(char *plate,double price,int year)  { 
-	car_t *pp=(car_t*)malloc(sizeof(car_t));
-	if(!pp) {
+	car_t *pp;
+	if(!(pp = (car_t*)malloc(sizeof(car_t)))) {
 		printf("[Error: malloc failed allocating car]\n");
 		return NULL;
 	}
@@ -51,12 +41,8 @@ car_t *make_car(char *plate,double price,int year)  {
 
 bool searchfn (void *elementp, const void *keyp){
     car_t* cp = (car_t *)elementp;
-    int key =*(int*)keyp;
-		
-		//printf("Year : %d\n", cp->year);
-		// printf("Key: %d\n", key);
-		printf("k: %d, y: %d, eq: %d\n", key, cp->year, cp->year==key);
-    return(cp->year == key);
+    int* key = (int *)keyp;
+    return(cp->year == *key);
 }
 
 int main(void){
@@ -67,39 +53,36 @@ int main(void){
     car_t *p4 = make_car("4",3500,2008);
     car_t *p5 = make_car("5",1200,2001);
 
+    
+
     qput(queuep,(void *)p1);
     qput(queuep,(void *)p2);
     qput(queuep,(void *)p3);
     qput(queuep,(void *)p4);
-    qput(queuep,(void *)p5);
-		
+    qput(queuep,(void *)p5); 
     qapply(queuep, printcar);
 		printf("\n\n");
 
-    const int key= 2000;
-    void* result = qsearch(queuep,searchfn,(void*) &key);
+		const int key= 2006;  
+    void* result = qremove(queuep,searchfn, (void*)&key);
+		
+		car_t* cp = (car_t *)result;
 
-	car_t* cp = (car_t *)result;
-	printf("\n\n");	
-
-	if (!cp){
-		printf("couldn't find! exiting...");
-		exit(EXIT_FAILURE);
-	}
-
-	if(cp->year == key){
-		printf("Success! Returned right car\n");
+		if (!cp){
+			printf("Not found! Exiting...");
+			exit(EXIT_FAILURE);
+		}
+		
+		printf("\n\nRemoved car is returned below:\n");
 		printcar(cp);
-	}
-	
-	//free(p1); 
-	//free(p2); 
-    //free(p3); 
-    //free(p4); 
-    //free(p5);
-		//free(pp);
-		//free(queuep);
-	qclose(queuep);
-	exit(EXIT_SUCCESS); 
+		printf("\n\n\n");
+		qapply(queuep, printcar);
+		//   free(p1); 
+		// free(p2); 
+		// free(p3); 
+		// free(p4); 
+		// free(p5); 
+		qclose(queuep);
+		exit(EXIT_SUCCESS); 
 }
 

@@ -43,8 +43,8 @@ relement_t *make_element(relement_t *next_el, void *el){
 queue_t* qopen(void){
 	//this is so not right lmao
 	//if malloc fails, it should return NULL, p arrow front undefined
-	rq_t* p = (rq_t*)malloc(sizeof(rq_t));
-	if (!(p = (rq_t*)malloc(sizeof(rq_t)))){
+	rq_t* p= (rq_t*)malloc(sizeof(rq_t));
+	if (!p){
 		printf("Error!");
 		return NULL;
 	}else{
@@ -57,14 +57,14 @@ queue_t* qopen(void){
 void qclose(queue_t *qp){
     rq_t *rqp = (rq_t *)qp;
     relement_t *p = rqp->front;
-    while(p != rqp->back) {
+    while(p != NULL) {
         relement_t *temp = p->next;
         //need to free void element pointer
         void *el = p->element; 
         free(el); 
-		free(p);
+				free(p);
         p=temp;
-		free(temp);
+				//free(temp);
     }
 	free(rqp);
 }
@@ -125,51 +125,49 @@ void qapply(queue_t *qp, void (*fn)(void* elementp)){
 void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp),const void* skeyp){
 	rq_t *rqp = (rq_t *)qp;
 	relement_t *elementp = rqp->front;
-	int k=0;
 	
-	while(elementp!=NULL){
-		if (searchfn(elementp->element,(void *) skeyp)==1){
+	while(elementp != NULL) {
+		if (searchfn((void *)elementp->element,skeyp)){
 			printf("Element found!");
-			k=1;
-			return(elementp); 
+			return(void *)elementp->element; 
 		}
 		elementp=elementp->next;  
 	}
 
-	if (k!=1){
-		return NULL;
-	}
-	return((void*)elementp);   
+	return NULL;   
 }
 
 void* qremove(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),const void* skeyp) {
 	rq_t *rqp = (rq_t *)qp;											 
 	relement_t *elementp = rqp->front;
-  relement_t *p = (relement_t*)malloc(sizeof(relement_t));
+	relement_t *p = NULL; //(relement_t*)malloc(sizeof(relement_t));
 	int k=0;
-	
-	 if (!(p = (relement_t*)malloc(sizeof(relement_t)))){
-		 printf("Error!");
-		 return NULL;  
-	 }
+
+	 //if (!(p = (relement_t*)malloc(sizeof(relement_t)))){
+		 //printf("Error!");
+		 //return NULL;  
+	 //}
 	 if (qp== NULL){
 		 return NULL;
 	 }
 	 
 	 while(elementp!=NULL){
-		 if (searchfn(elementp->element, skeyp)==1){                                                                               
-			 printf("Element found!Removing it");
+			 //it never finds the element but it should
+		 if (searchfn(elementp->element, skeyp)){                                                                               
+			 printf("Element found!Removing it\n");
 			 p= elementp;
-			 rqp->front= elementp->next;
+			 elementp= elementp->next;
 			 k=1;
-		 }                                                                                                                         
-    elementp=elementp->next;                                                                                                   
+		 }else{  
+			 printf("element doesn't match\n");
+     }                                                                                                                  
+		 elementp=elementp->next;                                                                                                   
 	 }
 	 
 	 if (k!=1){
 		 return NULL;                                                                                            
 	 }
-	 return((void*)p);
+	 return((void*)p->element);
 }
 
 void qconcat(queue_t *q1p, queue_t *q2p){
@@ -191,5 +189,8 @@ void qconcat(queue_t *q1p, queue_t *q2p){
 		qclose(rqp2); 
 	}
 }
+
+
+
 
 

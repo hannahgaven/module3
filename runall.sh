@@ -10,3 +10,6 @@ runtest.sh test7
 runtest.sh test8
 runtest.sh test9
 runtest.sh test10
+runtest.sh test11
+runtest.sh test13
+runtest.sh test15
