@@ -56,14 +56,14 @@ int main(void){
 
     qput(queuep,p1); 
     qapply(queuep, printcar); 
-    car_t *result = qsearch(queuep,searchfn, "1"); 
+    car_t *result = qsearch((void*)queuep,searchfn,(void*)"1"); 
     printcar(result); 
 
-    free(p1); 
-    free(p2); 
-    free(p3); 
-    free(p4); 
-    free(p5); 
+		//    free(p1); 
+		// free(p2); 
+		// free(p3); 
+		// free(p4); 
+		// free(p5); 
     exit(EXIT_SUCCESS); 
 }
 

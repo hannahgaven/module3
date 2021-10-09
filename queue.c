@@ -128,7 +128,7 @@ void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp),con
 	int k=0;
 	
 	while(elementp!=NULL){
-		if (searchfn(elementp->element, skeyp)==1){
+		if (searchfn(elementp->element,(void *) skeyp)==1){
 			printf("Element found!");
 			k=1;
 			return(elementp); 
@@ -139,7 +139,7 @@ void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp),con
 	if (k!=1){
 		return NULL;
 	}
-	return(elementp);   
+	return((void*)elementp);   
 }
 
 void* qremove(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),const void* skeyp) {
@@ -190,10 +190,6 @@ void qconcat(queue_t *q1p, queue_t *q2p){
 		rqp2->back = NULL; 
 		qclose(rqp2); 
 	}
-<<<<<<< HEAD
-
-	}
-=======
 }
->>>>>>> f2c294e073aa941fb35d3daf30cc8c18d3631486
+
 
