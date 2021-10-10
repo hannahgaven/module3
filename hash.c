@@ -8,6 +8,7 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <string.h> 
+#include <stdbool.h>
 
 /* 
  * SuperFastHash() -- produces a number between 0 and the tablesize-1.
@@ -63,20 +64,20 @@ int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
 }
 
 void happly(hashtable_t *htp, void (*fn)(void* ep)) {
-    hashtable_t *htp = (hashtable_t*)hp; 
+    hashtable_t *htp = (hashtable_t *)hp; 
     
     for (int i=0; i <hp->size; i++){
-        hashtable_element_t *currentp = hp->elements[i]; 
+        hashelement_t *currentp = hp->elements[i]; 
         fn(currentp); 
     }
 
 }
 
 void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, nt32_t keylen) {
-    hashtable_t *htp = (hashtable_t*)hp; 
+    hashtable_t *htp = (hashtable_t *)hp; 
     
     for (int i=0; i <hp->size; i++){
-        hashtable_element_t *currentp = hp->elements[i]; 
+        hashelement_t *currentp = hp->elements[i]; 
         if(searchfn((void *)currentp,currentp->key)){
           prinf("Element found!"); 
           return(void *)currentp; 
@@ -95,8 +96,8 @@ void *hremove(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* sea
       }
 
       for (int i=0; i <hp->size; i++){
-        hashtable_element_t *currentp = hp->elements[i]; 
-        if (searchfn(currentp->key, key){
+        hashelement_t *currentp = hp->elements[i]; 
+        if (searchfn(currentp->key, key)) {
           prinf("Element found! Removing it\n"); 
           return currentp->key; 
         }
