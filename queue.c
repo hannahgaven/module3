@@ -128,7 +128,7 @@ void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp),con
 	
 	while(elementp != NULL) {
 		if (searchfn((void *)elementp->element,skeyp)){
-			printf("Element found!");
+			printf("Element found!\n");
 			return(void *)elementp->element; 
 		}
 		elementp=elementp->next;  

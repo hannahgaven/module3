@@ -36,12 +36,9 @@ car_t *make_car(char *plate,double price,int year)  {
 }
 
 bool searchfn (void *elementp, const void *keyp){
-
-    if(elementp == keyp){
-        return true; 
-    }else{
-        return false; 
-    }
+    car_t* cp = (car_t *)elementp;
+    int* key = (int *)keyp;
+    return(cp->year == *key);
 }
 
 int main(void){
@@ -55,15 +52,25 @@ int main(void){
     
 
     qput(queuep,p1); 
+	qput(queuep,p2); 
+	qput(queuep,p3);
+	qput(queuep,p4);
+	qput(queuep,p5);
     qapply(queuep, printcar); 
-    car_t *result = qsearch((void*)queuep,searchfn,(void*)"1"); 
-    printcar(result); 
+	const int key= 2006;  
+	void* result = qsearch(queuep,searchfn, (void*)&key);
 
-		//    free(p1); 
-		// free(p2); 
-		// free(p3); 
-		// free(p4); 
-		// free(p5); 
-    exit(EXIT_SUCCESS); 
+	car_t* cp = (car_t *)result;
+
+	if (!cp){
+			printf("Not found! Exiting...\n");
+			exit(EXIT_FAILURE);
+		}
+ 
+    printcar(cp); 
+	printf(".....\n");
+	qapply(queuep, printcar);
+    qclose(queuep);
+	exit(EXIT_SUCCESS); 
 }
 
