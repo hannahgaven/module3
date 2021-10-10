@@ -62,7 +62,7 @@ void qclose(queue_t *qp){
         //need to free void element pointer
         void *el = p->element; 
         free(el); 
-				free(p);
+		free(p);
         p=temp;
 				//free(temp);
     }
@@ -102,7 +102,7 @@ void* qget(queue_t *qp){
 		p=p->next;
 		rqp->front=p;
 		//free(p->element);
-		//free(p->next);
+		//free(p);
 	}
 	else {
 		pp=p;
