@@ -106,10 +106,12 @@ void* qget(queue_t *qp){
 	}
 	else {
 		pp=p;
-		return (void *)pp;
+		free(pp);		
+		return NULL;
 	}
-	//free(p);
-	return (void *)pp->element;
+	void* data = pp->element;
+	free(pp);
+	return data;
 }
 
 void qapply(queue_t *qp, void (*fn)(void* elementp)){
