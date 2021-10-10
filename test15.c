@@ -20,10 +20,6 @@ static void printcar(void *p) {
 	printf("Plate : %s, Price: %f, Year: %d\n", cp->plate, cp->price, cp->year);
 }
 
-static void printcars(car_t *cp) {
-	printf("Plate : %s, Price: %f, Year: %d\n", cp->plate, cp->price, cp->year);
-}
-
 car_t *front=NULL; 
 
 car_t *make_car(char *plate,double price,int year)  { 
@@ -53,7 +49,7 @@ int main(void){
     car_t *p4 = make_car("4",3500,2008);
     car_t *p5 = make_car("5",1200,2001);
 
-    
+		
 
     qput(queuep,(void *)p1);
     qput(queuep,(void *)p2);
@@ -68,22 +64,36 @@ int main(void){
 		
 		car_t* cp = (car_t *)result;
 
+
 		if (!cp){
-			printf("Not found! Exiting...");
+			printf("Not found! Exiting...\n");
 			exit(EXIT_FAILURE);
 		}
 		
-		printf("\n\nRemoved car is returned below:\n");
+		printf("\nRemoved car is returned below:\n");
 		printcar(cp);
 		printf("\n\n\n");
 		qapply(queuep, printcar);
-		//   free(p1); 
-		// free(p2); 
-		// free(p3); 
-		// free(p4); 
-		// free(p5); 
+
+		const int key3= 2008;                                                                                                        void* result3 = qremove(queuep,searchfn, (void*)&key3);   
+
+		printf("Removed car:\n");
+		car_t* cp3 = (car_t *)result3;
+		printcar(cp3);
+
+		printf("Rest of list:\n");
+		qapply(queuep,printcar);
+		
 		qclose(queuep);
 		free(result);
-		exit(EXIT_SUCCESS); 
+		
+		printf("removing from empty list:");
+		car_t *queuep2 = qopen();
+		void* result2 = qremove(queuep2,searchfn, (void*)&key);   
+		car_t* cp2= (car_t *)result2;
+		printcar(cp2);
+		exit(EXIT_SUCCESS);
 }
+
+
 

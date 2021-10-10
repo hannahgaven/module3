@@ -62,7 +62,7 @@ void qclose(queue_t *qp){
         //need to free void element pointer
         void *el = p->element; 
         free(el); 
-				free(p);
+		free(p);
         p=temp;
 				//free(temp);
     }
@@ -102,14 +102,16 @@ void* qget(queue_t *qp){
 		p=p->next;
 		rqp->front=p;
 		//free(p->element);
-		//free(p->next);
+		//free(p);
 	}
 	else {
 		pp=p;
-		return (void *)pp;
+		free(pp);		
+		return NULL;
 	}
-	//free(p);
-	return (void *)pp->element;
+	void* data = pp->element;
+	free(pp);
+	return data;
 }
 
 void qapply(queue_t *qp, void (*fn)(void* elementp)){
@@ -128,7 +130,7 @@ void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp),con
 	
 	while(elementp != NULL) {
 		if (searchfn((void *)elementp->element,skeyp)){
-			printf("Element found!");
+			printf("Element found!\n");
 			return(void *)elementp->element; 
 		}
 		elementp=elementp->next;  
@@ -141,15 +143,15 @@ void* qremove(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),cons
 	rq_t *rqp = (rq_t *)qp;											 
 	relement_t *p = rqp->front;
 	relement_t *p2 = NULL; //(relement_t*)malloc(sizeof(relement_t));
-	int k=0;
   void* p_element;
 	
 	 //if (!(p = (relement_t*)malloc(sizeof(relement_t)))){
 		 //printf("Error!");
 		 //return NULL;  
 	 //}
-	 if (qp== NULL){
-		 return NULL;
+	if (qp== NULL || p==NULL || p->element==NULL){
+		printf("List may be empty.. Cant remove\n");
+		 exit(EXIT_FAILURE);
 	 }
 	 //first item on the queue
 	 if (searchfn(p->element, skeyp)){
