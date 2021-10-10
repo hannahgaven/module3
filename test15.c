@@ -64,7 +64,7 @@ int main(void){
 		printf("\n\n");
 
 		const int key= 2006;  
-    void* result = qremove(queuep,searchfn, (void*)&key);
+		void* result = qremove(queuep,searchfn, (void*)&key);
 		
 		car_t* cp = (car_t *)result;
 
@@ -83,6 +83,7 @@ int main(void){
 		// free(p4); 
 		// free(p5); 
 		qclose(queuep);
+		free(result);
 		exit(EXIT_SUCCESS); 
 }
 
