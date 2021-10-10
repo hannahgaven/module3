@@ -81,23 +81,19 @@ int main(void){
 	printf("Rest of the list:\n");
 	qapply(queuep, printcar);   
 	
-		
-	//void *carp2= qget(queuep);
-	//car_t* cp2 = (car_t *)carp2;
-	//void *carp3= qget(queuep);
-	//car_t* cp3 = (car_t *)carp3;
 	if(cp1!=NULL){
 		qclose(queuep);
-		qclose(cp1);
+		free(cp1);
 		//	free(p1);
 		//	free(p2);
 		//	free(p3);
 		exit(EXIT_SUCCESS);
 	}
 	qclose(queuep);
-	qclose(cp1);
+	free(cp1);
 	//	free(p1);
 	//	free(p2);
- //free(p3);
+	//free(p1);
+	qclose(queuep);
 	exit(EXIT_FAILURE);
 }

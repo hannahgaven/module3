@@ -47,7 +47,7 @@ test13: queue.o test13.o
 test15: queue.o test15.o
 				gcc $(CFLAGS) queue.o test15.o -o test15
 
-test15: queue.o test16.o
+test16: queue.o test16.o
 				gcc $(CFLAGS) queue.o test16.o -o test16
 
 clean:

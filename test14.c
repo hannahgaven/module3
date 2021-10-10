@@ -50,12 +50,18 @@ int main(void){
 	car_t *p2 = make_car("2",3002,2006);
 	car_t *p3 = make_car("3",3003,2007);
 
-  qput(queuep,(void *)p1);
+  	qput(queuep,(void *)p1);
 	qput(queuep,(void *)p2);
 	qput(queuep,(void *)p3);
 	qapply(queuep, printcar);
 	printf("....\n");
 	void *carp1= qget(queuep);
+
+	if carp1=NULL {
+		qclose(queuep);
+		exit(EXIT_SUCCESS);
+
+	}
 	car_t* cp1 = (car_t *)carp1;
 	//void *carp2= qget(queuep);
 	//car_t* cp2 = (car_t *)carp2;

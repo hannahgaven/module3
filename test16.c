@@ -58,6 +58,7 @@ int main(void){
     if (queuep != NULL) {
         qapply(queuep, printcar);
         qclose(queuep);
+        qclose(queuep2);
         exit(EXIT_SUCCESS);
     }
 

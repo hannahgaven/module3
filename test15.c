@@ -49,7 +49,7 @@ int main(void){
     car_t *p4 = make_car("4",3500,2008);
     car_t *p5 = make_car("5",1200,2001);
 
-    
+		
 
     qput(queuep,(void *)p1);
     qput(queuep,(void *)p2);
@@ -60,9 +60,10 @@ int main(void){
 		printf("\n\n");
 
 		const int key= 2006;  
-    void* result = qremove(queuep,searchfn, (void*)&key);
+		void* result = qremove(queuep,searchfn, (void*)&key);
 		
 		car_t* cp = (car_t *)result;
+
 
 		if (!cp){
 			printf("Not found! Exiting...\n");
@@ -73,7 +74,26 @@ int main(void){
 		printcar(cp);
 		printf("\n\n\n");
 		qapply(queuep, printcar);
+
+		const int key3= 2008;                                                                                                        void* result3 = qremove(queuep,searchfn, (void*)&key3);   
+
+		printf("Removed car:\n");
+		car_t* cp3 = (car_t *)result3;
+		printcar(cp3);
+
+		printf("Rest of list:\n");
+		qapply(queuep,printcar);
+		
 		qclose(queuep);
-		exit(EXIT_SUCCESS); 
+		free(result);
+		
+		printf("removing from empty list:");
+		car_t *queuep2 = qopen();
+		void* result2 = qremove(queuep2,searchfn, (void*)&key);   
+		car_t* cp2= (car_t *)result2;
+		printcar(cp2);
+		exit(EXIT_SUCCESS);
 }
+
+
 

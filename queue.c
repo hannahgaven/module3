@@ -62,7 +62,7 @@ void qclose(queue_t *qp){
         //need to free void element pointer
         void *el = p->element; 
         free(el); 
-				free(p);
+		free(p);
         p=temp;
 				//free(temp);
     }
@@ -102,14 +102,16 @@ void* qget(queue_t *qp){
 		p=p->next;
 		rqp->front=p;
 		//free(p->element);
-		//free(p->next);
+		//free(p);
 	}
 	else {
 		pp=p;
-		return (void *)pp;
+		free(pp);		
+		return NULL;
 	}
-	//free(p);
-	return (void *)pp->element;
+	void* data = pp->element;
+	free(pp);
+	return data;
 }
 
 void qapply(queue_t *qp, void (*fn)(void* elementp)){
@@ -139,35 +141,40 @@ void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp),con
 
 void* qremove(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),const void* skeyp) {
 	rq_t *rqp = (rq_t *)qp;											 
-	relement_t *elementp = rqp->front;
-	relement_t *p = NULL; //(relement_t*)malloc(sizeof(relement_t));
-	int k=0;
-
+	relement_t *p = rqp->front;
+	relement_t *p2 = NULL; //(relement_t*)malloc(sizeof(relement_t));
+  void* p_element;
+	
 	 //if (!(p = (relement_t*)malloc(sizeof(relement_t)))){
 		 //printf("Error!");
 		 //return NULL;  
 	 //}
-	 if (qp== NULL){
-		 return NULL;
+	if (qp== NULL || p==NULL || p->element==NULL){
+		printf("List may be empty.. Cant remove\n");
+		 exit(EXIT_FAILURE);
+	 }
+	 //first item on the queue
+	 if (searchfn(p->element, skeyp)){
+		 p2=rqp->front;
+		 p_element= p2->element;
+		 rqp->front=rqp->front->next;
+		 free(p2);
+		 return(p_element);
 	 }
 	 
-	 while(elementp!=NULL){
-			 //it never finds the element but it should
-		 if (searchfn(elementp->element, skeyp)){                                                                               
+	 while(p!=NULL){
+		 p=p->next;
+		 p2= p->next;
+		 if (searchfn(p2->element, skeyp)){
 			 printf("Element found!Removing it\n");
-			 p= elementp;
-			 elementp= elementp->next;
-			 k=1;
-		 }else{  
-			 printf("element doesn't match\n");
-     }                                                                                                                  
-		 elementp=elementp->next;                                                                                                   
+			 p->next=p2->next;
+			 p_element= p2->element;
+			 free(p2);
+			 return((void*)p_element);  
+		 }                                                                                                                
 	 }
 	 
-	 if (k!=1){
-		 return NULL;                                                                                            
-	 }
-	 return((void*)p->element);
+		 return NULL;                                                                              
 }
 
 void qconcat(queue_t *q1p, queue_t *q2p){
