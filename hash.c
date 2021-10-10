@@ -42,8 +42,8 @@ hashelement_t *make_element(char* key, char* value){
     //hashelement_t* element = (hashelement_t*)malloc(sizeof(hashelement_t)); 
     element->key = (char*)malloc(strlen(key)); 
     element->value = (char*)malloc(strlen(value)); 
-    strpcpy(element->key,key); 
-    strcpy(element->value,value); 
+    strncpy(element->key,key); 
+    strncpy(element->value,value); 
     
     return element; 
 }
