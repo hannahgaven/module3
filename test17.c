@@ -6,8 +6,10 @@
 #include <inttypes.h> 
 #include <stdbool.h>
 #include "hash.h"
+#include "queue.h"
 
 #define TABLESIZE 10 
+#define MAXREG 10 
 
 
 typedef struct car {
@@ -42,9 +44,9 @@ int main(void){
 	car_t *car1 = hopen(TABLESIZE); 
 
 	car_t *p1 = make_car("1", 1500, 2002); 
-	car_t *p2 = make_car("2", 2000, 2000);
-	car_t *p3 = make_car("3", 3000, 2008);
-	hput(car1, (void *)p1, vehicle, 7); 
+	//car_t *p2 = make_car("2", 2000, 2000);
+	//car_t *p3 = make_car("3", 3000, 2008);
+	hput(car1, (void *)p1, "vehicle", strlen("vehicle")); 
 
 	printf("Printing cars now\n"); 
 	happly(car1, printcar); 

@@ -41,8 +41,6 @@ relement_t *make_element(relement_t *next_el, void *el){
 
 
 queue_t* qopen(void){
-	//this is so not right lmao
-	//if malloc fails, it should return NULL, p arrow front undefined
 	rq_t* p= (rq_t*)malloc(sizeof(rq_t));
 	if (!p){
 		printf("Error!");
@@ -64,7 +62,6 @@ void qclose(queue_t *qp){
         free(el); 
 		free(p);
         p=temp;
-				//free(temp);
     }
 	free(rqp);
 }
@@ -72,7 +69,6 @@ void qclose(queue_t *qp){
 
 int32_t qput(queue_t *qp, void *elementp){
     rq_t *rqp = (rq_t *)qp; 
-    //relement_t *rep = (void *)elementp; 
 		relement_t *end = rqp->back;
 		relement_t *new;
 		
@@ -101,8 +97,6 @@ void* qget(queue_t *qp){
 		pp= p;
 		p=p->next;
 		rqp->front=p;
-		//free(p->element);
-		//free(p);
 	}
 	else {
 		pp=p;

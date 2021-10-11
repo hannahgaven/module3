@@ -50,8 +50,8 @@ test15: queue.o test15.o
 test16: queue.o test16.o
 				gcc $(CFLAGS) queue.o test16.o -o test16
 
-test17: hash.o test17.o
-				gcc $(CFLAGS) hash.o test17.o -o test17 
+test17: hash.o queue.o test17.o
+				gcc $(CFLAGS) hash.o queue.o test17.o -o test17 
 
 clean:
 				rm -f *.o test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11 test12 test13 test15 test16 test17
