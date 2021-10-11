@@ -53,11 +53,12 @@ int main(void){
     qput(queuep2,(void *)p5); 
     qapply(queuep2, printcar);
     
-    qconcat(queuep, queuep2);
+    qconcat(queuep2, queuep);
 
-    if (queuep != NULL) {
-        qapply(queuep, printcar);
-        qclose(queuep);
+    if (queuep2 != NULL) {
+        printf("printing queue1\n");
+        qapply(queuep2, printcar);
+        //qclose(queuep);
         qclose(queuep2);
         exit(EXIT_SUCCESS);
     }
