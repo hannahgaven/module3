@@ -185,15 +185,20 @@ void qconcat(queue_t *q1p, queue_t *q2p){
 	if (rqp1->front == NULL) {
 		rqp1->front = rqp2->front; 
 		rqp1->back = rqp2->back;
-		rqp1->front = NULL; 
+		rqp2->front = NULL; 
 		rqp2->back = NULL;
+		free(rqp2);
 	}
 	else if (rqp2->front != NULL) { 
 		back1->next = rqp2->front;
 		rqp1->back = rqp2->back; 
 		rqp2->front = NULL; 
 		rqp2->back = NULL; 
-		qclose(rqp2); 
+		free(rqp2); 
+		//free(rqp2);
+	}
+	else if (rqp2->front == NULL) { 
+		free(rqp2); 
 	}
 }
 
