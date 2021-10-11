@@ -1,6 +1,6 @@
 CFLAGS=-Wall -pedantic -std=c11 -I. -g
 
-all: test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11 test12 test13 test15 test16 test17
+all:  test17 test18 test19
 
 %.o:		%.c %.h
 				gcc $(CFLAGS) -c $<
@@ -53,5 +53,11 @@ test16: queue.o test16.o
 test17: hash.o queue.o test17.o
 				gcc $(CFLAGS) hash.o queue.o test17.o -o test17 
 
+test18: hash.o queue.o test18.o
+				gcc $(CFLAGS) hash.o queue.o test18.o -o test18 
+
+test19: hash.o queue.o test19.o
+				gcc $(CFLAGS) hash.o queue.o test19.o -o test19
+
 clean:
-				rm -f *.o test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11 test12 test13 test15 test16 test17
+				rm -f *.o test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11 test12 test13 test15 test16 test17 test18 test19
