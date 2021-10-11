@@ -111,7 +111,7 @@ int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
       return 1; 
     }
     //get the index using SuperFastHash (const char *data,int len,uint32_t tablesize)
-    uint32_t i = SuperFastHash((char *)ep, keylen, hp->size);
+    uint32_t i = SuperFastHash(key, keylen, hp->size);
     qput(hp->queues[i], ep); 
     //put in using qput
     return 0; 
@@ -136,25 +136,18 @@ void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* sea
       return NULL; 
     }
     uint32_t key_index = SuperFastHash(key, keylen, hp->size);
+    return (void*) qsearch(hp->queues[key_index], searchfn, key);     
     
-    if(qsearch(hp->queues[key_index], searchfn, key)){
-      return (void*) qsearch(hp->queues[key_index], searchfn, key);     
-    }
-      return NULL; 
 } 
 
 
 void *hremove(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, int32_t keylen) {
       ht_t *hp = (ht_t*)htp; 
-<<<<<<< HEAD
 
       if(hp == NULL || searchfn == NULL || key == NULL || keylen < 0){
         return NULL; 
     }
       uint32_t key_index = SuperFastHash(key, keylen, hp->size);
-=======
-      key_index = SuperFastHash((char *)ep, keylen, htp->size);
->>>>>>> 71db0e9b89cf273560d08dfa07f7a6e548bfa3d2
 
       if(qremove(hp->queues[key_index], searchfn, key)){
       return (void*) qremove(hp->queues[key_index], searchfn, key);     

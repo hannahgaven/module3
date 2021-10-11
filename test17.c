@@ -39,19 +39,35 @@ car_t *make_car(char *plate,double price,int year)  {
 	return pp;
 }
 
+bool searchplate (void *elementp, const void *keyp){
+	car_t* car = elementp; 
+	printf("plate: %s\n", car->plate); 
+	if(strcmp(car->plate, keyp) == 0) {
+		return true;
+	} 
+	return false; 
+}
+
 
 int main(void){
-	car_t *car1 = hopen(TABLESIZE); 
+	hashtable_t* table = hopen(TABLESIZE); 
 
-	car_t *p1 = make_car("1", 1500, 2002); 
-	//car_t *p2 = make_car("2", 2000, 2000);
-	//car_t *p3 = make_car("3", 3000, 2008);
-	hput(car1, (void *)p1, "vehicle", strlen("vehicle")); 
+	car_t *p1 = make_car("vehicle", 1500, 2002); 
+	car_t *p2 = make_car("car", 2000, 2000);
+	car_t *p3 = make_car("truck", 3000, 2008);
+	hput(table, (void *)p1, "vehicle", strlen("vehicle")); 
+	hput(table, (void *)p2, "car", strlen("car")); 
+	hput(table, (void *)p3, "truck", strlen("truck")); 
 
-	printf("Printing cars now\n"); 
-	happly(car1, printcar); 
-	
-	hclose(car1); 
+
+	printf("Printing cars now!! \n"); 
+	happly(table, printcar); 
+
+	printf("removing car #3 now\n"); 
+	hremove(table,searchplate, "truck", strlen("truck")); 
+	printf("new list of cars\n"); 
+	happly(table, printcar); 
+	hclose(table); 
 
     exit(EXIT_SUCCESS); 
 }
