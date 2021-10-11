@@ -8,12 +8,8 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <string.h> 
-<<<<<<< HEAD
-#include <stdbool.h>
-=======
 #include "queue.h"
 #include "hash.h"
->>>>>>> e3f84df2d863a220eb9d1c155e934b7268d82a03
 
 /* 
  * SuperFastHash() -- produces a number between 0 and the tablesize-1.
@@ -42,8 +38,8 @@ hashelement_t *make_element(char* key, char* value){
     //hashelement_t* element = (hashelement_t*)malloc(sizeof(hashelement_t)); 
     element->key = (char*)malloc(strlen(key)); 
     element->value = (char*)malloc(strlen(value)); 
-    strpcpy(element->key,key); 
-    strcpy(element->value,value); 
+    strncpy(element->key,key); 
+    strncpy(element->value,value); 
     
     return element; 
 }
@@ -80,32 +76,13 @@ int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
 }
 
 void happly(hashtable_t *htp, void (*fn)(void* ep)) {
-<<<<<<< HEAD
-    hashtable_t *htp = (hashtable_t *)hp; 
-    
-    for (int i=0; i <hp->size; i++){
-        hashelement_t *currentp = hp->elements[i]; 
-        fn(currentp); 
-=======
     ht_t *hp = (ht_t*)htp; 
     for (int i=0; i <hp->size; i++){
       qapply(hp->queues[i], fn); 
->>>>>>> e3f84df2d863a220eb9d1c155e934b7268d82a03
     }
 
 }
 
-<<<<<<< HEAD
-void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, nt32_t keylen) {
-    hashtable_t *htp = (hashtable_t *)hp; 
-    
-    for (int i=0; i <hp->size; i++){
-        hashelement_t *currentp = hp->elements[i]; 
-        if(searchfn((void *)currentp,currentp->key)){
-          prinf("Element found!"); 
-          return(void *)currentp; 
-        }
-=======
 void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, int32_t keylen) {
     ht_t *hp = (ht_t*)htp; 
     
@@ -113,36 +90,14 @@ void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* sea
     
     if(qsearch(hp->queues[key_index], searchfn, key)){
       return (void*) qsearch(hp->queues[key_index], searchfn, key);     
->>>>>>> e3f84df2d863a220eb9d1c155e934b7268d82a03
     }
       return NULL; 
 } 
 
 
 void *hremove(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, int32_t keylen) {
-<<<<<<< HEAD
-      hashtable_t *htp = (hashtable_t*)hp; 
-
-      if (hp == NULL) {
-        return NULL; 
-      }
-
-      for (int i=0; i <hp->size; i++){
-        hashelement_t *currentp = hp->elements[i]; 
-        if (searchfn(currentp->key, key)) {
-          prinf("Element found! Removing it\n"); 
-          return currentp->key; 
-        }
-        else{
-          printf("Element does not match key\n"); 
-          return NULL; 
-        }
-      }
-}
-=======
       ht_t *hp = (ht_t*)htp; 
       key_index = SuperFastHash((char *)ep, keylen, htp->size);
->>>>>>> e3f84df2d863a220eb9d1c155e934b7268d82a03
 
       if(qremove(hp->queues[key_index], searchfn, key)){
       return (void*) qremove(hp->queues[key_index], searchfn, key);     
