@@ -146,11 +146,15 @@ void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* sea
 
 void *hremove(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* searchkeyp), const char *key, int32_t keylen) {
       ht_t *hp = (ht_t*)htp; 
+<<<<<<< HEAD
 
       if(hp == NULL || searchfn == NULL || key == NULL || keylen < 0){
         return NULL; 
     }
       uint32_t key_index = SuperFastHash(key, keylen, hp->size);
+=======
+      key_index = SuperFastHash((char *)ep, keylen, htp->size);
+>>>>>>> 71db0e9b89cf273560d08dfa07f7a6e548bfa3d2
 
       if(qremove(hp->queues[key_index], searchfn, key)){
       return (void*) qremove(hp->queues[key_index], searchfn, key);     

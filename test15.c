@@ -91,7 +91,7 @@ int main(void){
 		car_t *queuep2 = qopen();
 		void* result2 = qremove(queuep2,searchfn, (void*)&key);   
 		car_t* cp2= (car_t *)result2;
-		printcar(cp2);
+		
 		exit(EXIT_SUCCESS);
 }
 

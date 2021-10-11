@@ -135,40 +135,38 @@ void* qsearch(queue_t *qp, bool (*searchfn)(void* elementp,const void* keyp),con
 
 void* qremove(queue_t *qp,bool (*searchfn)(void* elementp,const void* keyp),const void* skeyp) {
 	rq_t *rqp = (rq_t *)qp;											 
-	relement_t *p = rqp->front;
-	relement_t *p2 = NULL; //(relement_t*)malloc(sizeof(relement_t));
-  void* p_element;
+  void* p_element=NULL;
 	
-	 //if (!(p = (relement_t*)malloc(sizeof(relement_t)))){
-		 //printf("Error!");
-		 //return NULL;  
-	 //}
-	if (qp== NULL || p==NULL || p->element==NULL){
+	//if (!(p = (relement_t*)malloc(sizeof(relement_t)))){
+	//printf("Error!");
+	//return NULL;  
+	//}
+	if (qp== NULL || rqp->front==NULL || searchfn== NULL || skeyp ==NULL){
 		printf("List may be empty.. Cant remove\n");
-		 exit(EXIT_FAILURE);
-	 }
-	 //first item on the queue
-	 if (searchfn(p->element, skeyp)){
-		 p2=rqp->front;
-		 p_element= p2->element;
-		 rqp->front=rqp->front->next;
-		 free(p2);
-		 return(p_element);
-	 }
-	 
-	 while(p!=NULL){
-		 p=p->next;
-		 p2= p->next;
-		 if (searchfn(p2->element, skeyp)){
-			 printf("Element found!Removing it\n");
-			 p->next=p2->next;
-			 p_element= p2->element;
-			 free(p2);
-			 return((void*)p_element);  
-		 }                                                                                                                
-	 }
-	 
-		 return NULL;                                                                              
+		return NULL;
+	}
+	
+	//first item on the queue
+	if (searchfn(rqp->front->element, skeyp)){
+		relement_t *p2=rqp->front;
+		p_element= rqp->front->element;
+		rqp->front=rqp->front->next;
+		free(p2);
+	}else{
+
+		for(relement_t *p2=rqp->front; p2->next!=NULL;){
+			if (searchfn(p2->next->element, skeyp)){
+				printf("Element found!Removing it\n");
+				p_element= p2->next->element;
+				relement_t *temp= p2->next;
+				p2->next=temp->next;
+				free(temp);
+			}else{
+				p2= p2->next;
+			}
+		}
+	}
+	return p_element;                                                                             
 }
 
 void qconcat(queue_t *q1p, queue_t *q2p){
@@ -179,15 +177,20 @@ void qconcat(queue_t *q1p, queue_t *q2p){
 	if (rqp1->front == NULL) {
 		rqp1->front = rqp2->front; 
 		rqp1->back = rqp2->back;
-		rqp1->front = NULL; 
+		rqp2->front = NULL; 
 		rqp2->back = NULL;
+		free(rqp2);
 	}
 	else if (rqp2->front != NULL) { 
 		back1->next = rqp2->front;
 		rqp1->back = rqp2->back; 
 		rqp2->front = NULL; 
 		rqp2->back = NULL; 
-		qclose(rqp2); 
+		free(rqp2); 
+		//free(rqp2);
+	}
+	else if (rqp2->front == NULL) { 
+		free(rqp2); 
 	}
 }
 
