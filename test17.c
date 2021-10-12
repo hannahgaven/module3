@@ -40,7 +40,7 @@ car_t *make_car(char *plate,double price,int year)  {
 }
 
 bool searchplate (void *elementp, const void *keyp){
-	car_t* car = elementp; 
+	car_t* car = (car_t *) elementp; 
 	printf("plate: %s\n", car->plate); 
 	if(strcmp(car->plate, keyp) == 0) {
 		free(car);
@@ -64,9 +64,12 @@ int main(void){
 	printf("Printing cars now!! \n"); 
 	happly(table, printcar); 
 
-	printf("removing car #3 now\n"); 
+	hremove(table,searchplate, "car", strlen("car"));
+	
 	void* result = hremove(table,searchplate, "car", strlen("car")); 
 	car_t* cp = (car_t *)result;
+	printf("removing car #1 now\n"); 
+	printcar(cp);
 
 	void* result3 = hremove(table,searchplate, "vehicle", strlen("vehicle"));
 	car_t* cp3 = (car_t *)result3;
