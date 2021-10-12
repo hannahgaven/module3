@@ -43,9 +43,10 @@ bool searchplate (void *elementp, const void *keyp){
 	car_t* car = elementp; 
 	printf("plate: %s\n", car->plate); 
 	if(strcmp(car->plate, keyp) == 0) {
+		free(car);
 		return true;
-	} 
-	return false; 
+	}
+	return false;
 }
 
 

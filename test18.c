@@ -51,33 +51,33 @@ bool searchplate (void *elementp, const void *keyp){
 
 int main(void){
 	hashtable_t* table = hopen(TABLESIZE); 
-
+	
 	car_t *p1 = make_car("vehicle", 1500, 2002); 
 	car_t *p2 = make_car("car", 2000, 2000);
 	car_t *p3 = make_car("truck", 3000, 2008);
 	hput(table, (void *)p1, "vehicle", strlen("vehicle")); 
 	hput(table, (void *)p2, "car", strlen("car")); 
 	hput(table, (void *)p3, "truck", strlen("truck")); 
-
-
+	
+	
 	printf("Printing cars now!! \n"); 
 	happly(table, printcar); 
-
-
+	
+	
 	void* result = hsearch(table,searchplate, "truck", strlen("truck")); 
-    car_t* cp = (car_t *)result;
+	car_t* cp = (car_t *)result;
 	printf("\n\n");
-    if (!cp){
+	if (!cp){
 		printf("couldn't find! exiting...");
 		exit(EXIT_FAILURE);
 	}
-    if(strcmp(cp->plate, "truck") == 0) {
+	if(strcmp(cp->plate, "truck") == 0) {
 		printf("Success! Returned right car\n");
 		printcar(cp);
 	}
 	printf("list of cars\n"); 
 	happly(table, printcar); 
 	hclose(table); 
-
-    exit(EXIT_SUCCESS); 
+	
+	exit(EXIT_SUCCESS); 
 }

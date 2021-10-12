@@ -57,19 +57,24 @@ int main(void){
 
 
 	void* result = hremove(table,searchplate, "truck", strlen("truck")); 
+	happly(result, printcar);     
 
 
-    if(result!=NULL){
+	void* result2= hsearch(table, searchplate, "truck", strlen("truck"));
+	happly(result2, printcar);       
+
+	if(result!=NULL && result2!=NULL){
 		hclose(table);
 		free(result);
+		free(result2);
 		//	free(p1);
 		//	free(p2);
 		//	free(p3);
 		exit(EXIT_SUCCESS);
 	}
 	free(result);
-
 	hclose(table); 
 
+	
     exit(EXIT_FAILURE); 
 }

@@ -121,6 +121,7 @@ void happly(hashtable_t *htp, void (*fn)(void* ep)) {
     ht_t *hp = (ht_t*)htp; 
 
     if(hp == NULL || fn == NULL){
+			printf("List is empty or no function passed!\n");
       return; 
     }
     for (int i=0; i <hp->size; i++){
@@ -133,7 +134,8 @@ void *hsearch(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* sea
     ht_t *hp = (ht_t*)htp; 
   
     if(hp == NULL || searchfn == NULL || key == NULL || keylen < 0){
-      return NULL; 
+			printf("List may be empty or the inputs are invalid.\n");
+			return NULL; 
     }
     uint32_t key_index = SuperFastHash(key, keylen, hp->size);
     return (void*) qsearch(hp->queues[key_index], searchfn, key);     
