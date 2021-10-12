@@ -70,11 +70,11 @@ int main(void){
 		//	free(p1);
 		//	free(p2);
 		//	free(p3);
-		exit(EXIT_SUCCESS);
+		exit(EXIT_FAILURE);
 	}
 	free(result);
 	hclose(table); 
 
 	
-    exit(EXIT_FAILURE); 
+    exit(EXIT_SUCCESS); 
 }

@@ -8,7 +8,7 @@
 #include "hash.h"
 #include "queue.h"
 
-#define TABLESIZE 10 
+#define TABLESIZE 10
 #define MAXREG 10 
 
 
@@ -65,7 +65,27 @@ int main(void){
 	happly(table, printcar); 
 
 	printf("removing car #3 now\n"); 
-	hremove(table,searchplate, "truck", strlen("truck")); 
+	void* result = hremove(table,searchplate, "car", strlen("car")); 
+	car_t* cp = (car_t *)result;
+
+	void* result3 = hremove(table,searchplate, "vehicle", strlen("vehicle"));
+	car_t* cp3 = (car_t *)result3;
+
+	void* result2 = hremove(table,searchplate, "truck", strlen("truck"));
+	car_t* cp2 = (car_t *)result2;
+
+	if (cp == NULL){
+		printf("couldn't find! exiting...\n");
+		exit(EXIT_FAILURE);
+	}
+
+	//if(strcmp(cp->plate, "car") == 0) {
+		//printf("Success! Returned right car\n");
+		//printcar(cp);
+	//}
+	printcar(cp);
+	printcar(cp3);
+	printcar(cp2);
 	printf("new list of cars\n"); 
 	happly(table, printcar); 
 	hclose(table); 

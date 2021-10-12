@@ -64,17 +64,31 @@ int main(void){
 	happly(table, printcar); 
 	
 	
-	void* result = hsearch(table,searchplate, "truck", strlen("truck")); 
+	//void* result = hsearch(table,searchplate, "truck", strlen("truck")); 
+	//car_t* cp = (car_t *)result;
+
+	void* result = hsearch(table,searchplate, "car", strlen("car")); 
 	car_t* cp = (car_t *)result;
+
+	void* result3 = hsearch(table,searchplate, "vehicle", strlen("vehicle"));
+	car_t* cp3 = (car_t *)result3;
+
+	void* result2 = hsearch(table,searchplate, "truck", strlen("truck"));
+	car_t* cp2 = (car_t *)result2;
+
+
 	printf("\n\n");
 	if (!cp){
-		printf("couldn't find! exiting...");
+		printf("couldn't find! exiting...\n");
 		exit(EXIT_FAILURE);
 	}
 	if(strcmp(cp->plate, "truck") == 0) {
 		printf("Success! Returned right car\n");
 		printcar(cp);
 	}
+
+	printcar(cp2);
+	printcar(cp3);
 	printf("list of cars\n"); 
 	happly(table, printcar); 
 	hclose(table); 

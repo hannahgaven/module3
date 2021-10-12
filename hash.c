@@ -150,15 +150,17 @@ void *hremove(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* sea
         return NULL; 
     }
       uint32_t key_index = SuperFastHash(key, keylen, hp->size);
+      printf("key_index: %d\n", key_index);
+      hashelement_t *el = (hashelement_t *)qremove(hp->queues[key_index], searchfn, key);
 
-      if(qremove(hp->queues[key_index], searchfn, key)){
-      return (void*) qremove(hp->queues[key_index], searchfn, key);     
+      if (el->value != NULL) {
+      return (void*) el;  
+      //uint32_t key_index = SuperFastHash(key, keylen, hp->size);
+      // if (qremove(hp->queues[key_index], searchfn, key) == NULL) {
+      //return (void*) qremove(hp->queues[key_index], searchfn, key); 
+      // }
+      //   
     }
       return NULL; 
 
 } 
-      
-
-
-
-
