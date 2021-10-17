@@ -40,10 +40,10 @@ car_t *make_car(char *plate,double price,int year)  {
 }
 
 bool searchplate (void *elementp, const void *keyp){
-	car_t* car = (car_t *) elementp; 
+	car_t* car = (car_t *) elementp;
+	char* key = (char *)keyp;
 	printf("plate: %s\n", car->plate); 
-	if(strcmp(car->plate, keyp) == 0) {
-		free(car);
+	if(strcmp(car->plate, key) == 0) {
 		return true;
 	}
 	return false;
@@ -64,7 +64,10 @@ int main(void){
 	printf("Printing cars now!! \n"); 
 	happly(table, printcar); 
 
-	hremove(table,searchplate, "car", strlen("car"));
+	void* result2 = hremove(table,searchplate, "truck", strlen("truck"));
+	car_t* cp2 = (car_t *)result2;
+	printf("removing car #3 now\n"); 
+	printcar(cp2);
 	
 	void* result = hremove(table,searchplate, "car", strlen("car")); 
 	car_t* cp = (car_t *)result;
@@ -73,22 +76,21 @@ int main(void){
 
 	void* result3 = hremove(table,searchplate, "vehicle", strlen("vehicle"));
 	car_t* cp3 = (car_t *)result3;
+	printf("removing car #2 now\n"); 
+	printcar(cp3);
 
-	void* result2 = hremove(table,searchplate, "truck", strlen("truck"));
-	car_t* cp2 = (car_t *)result2;
+
+	printf("......\n");
 
 	if (cp == NULL){
 		printf("couldn't find! exiting...\n");
 		exit(EXIT_FAILURE);
 	}
 
-	//if(strcmp(cp->plate, "car") == 0) {
-		//printf("Success! Returned right car\n");
-		//printcar(cp);
-	//}
-	printcar(cp);
-	printcar(cp3);
-	printcar(cp2);
+	if(strcmp(cp->plate, "car") == 0) {
+		printf("Success! Returned right car\n");
+		printcar(cp);
+	}
 	printf("new list of cars\n"); 
 	happly(table, printcar); 
 	hclose(table); 

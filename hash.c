@@ -87,7 +87,7 @@ static uint32_t SuperFastHash (const char *data,int len,uint32_t tablesize) {
 hashtable_t* hopen(uint32_t hsize) {
     ht_t* table = (ht_t*)malloc(sizeof(ht_t)); 
     table->size = hsize; 
-    table->queues = (queue_t**)malloc(sizeof(queue_t*)*hsize); 
+    table->queues = (queue_t**)malloc(sizeof(queue_t*)*hsize + 1); 
     for (int i=0; i <table->size; i++){
       table->queues[i] = qopen(); 
     }
@@ -150,16 +150,17 @@ void *hremove(hashtable_t *htp, bool (*searchfn)(void* elementp, const void* sea
         printf("returning Null");
         return NULL; 
     }
+      
       uint32_t key_index = SuperFastHash(key, keylen, hp->size);
-      printf("key_index: %d\n", key_index);
-
-      void *object = qsearch(hp->queues[key_index], searchfn, key);
+      void* object = qremove(hp->queues[key_index], searchfn, (void *)key); 
 
       if(object != NULL){
-        printf("in the qremove if statement\n");
-        printf("key: %s\n", key);
-      return (void*) qremove(hp->queues[key_index], searchfn, key);;     
+        
+      return object;    
     }
-      return NULL; 
 
+    // if(hp->queues[key_index] != NULL){
+    //   return (void*) qget(hp->queues[key_index]);    
+    // }
+      return NULL; 
 }
